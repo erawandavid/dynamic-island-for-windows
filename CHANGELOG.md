@@ -13,6 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shared build settings (`Directory.Build.props`), pinned .NET 10 SDK (`global.json`), `.editorconfig`, `.gitattributes`, `.gitignore`.
 - Documentation: README, CONTRIBUTING, architecture overview, decision log, manual test checklist.
 - GitHub Actions CI (build + test on Windows), issue forms and pull request template.
-- Interactive design mockup of the island (`docs/mockup/index.html`): states, sizes, spring animation and sample activities, built from the spec in `PLAN.md`.
 
 [Unreleased]: https://github.com/erawandavid/dynamic-island-for-windows/commits/main
