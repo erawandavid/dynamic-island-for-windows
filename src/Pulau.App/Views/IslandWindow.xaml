@@ -1,0 +1,37 @@
+<Window x:Class="Pulau.Views.IslandWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pulau"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        Focusable="False"
+        UseLayoutRounding="True">
+    <!--
+        A fixed-size transparent host window. Fully transparent pixels are click-through
+        (layered window), so only the pill and its shadow receive mouse input.
+        Window size and the pill's top margin are set from IslandPlacement in code-behind.
+    -->
+    <Grid>
+        <Border x:Name="Pill"
+                Width="120"
+                Height="32"
+                CornerRadius="16"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="#000000"
+                AutomationProperties.Name="Pulau island">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="14"
+                                  ShadowDepth="2"
+                                  Direction="270"
+                                  Opacity="0.35"
+                                  Color="#000000" />
+            </Border.Effect>
+        </Border>
+    </Grid>
+</Window>

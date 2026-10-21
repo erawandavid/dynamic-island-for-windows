@@ -106,3 +106,10 @@ Visual style: background `#000000`, white text, secondary text `#A1A1A1`, Segoe 
 ## Window approach
 
 A single fixed-size transparent window (at least the largest expanded size plus shadow margin, e.g. 480 × 220 DIP) sits at the top center of the monitor; the pill is a `Border` inside it. Fully transparent pixels must be **click-through** — this is verified in Phase 1. If they are not, the fallback is to resize the window to follow the pill's bounds, or to toggle `WS_EX_TRANSPARENT` based on the cursor position. The outcome is recorded in [DECISIONS.md](DECISIONS.md).
+
+How it is implemented (Phase 1):
+
+- `Views/IslandWindow` is borderless, `AllowsTransparency`, `Topmost`, not in the taskbar and shown without activation. In `OnSourceInitialized` it adds `WS_EX_TOOLWINDOW` (no Alt+Tab) and `WS_EX_NOACTIVATE` (no focus), and its window procedure answers `WM_MOUSEACTIVATE` with `MA_NOACTIVATE`.
+- Placement is computed by `Pulau.Core.Layout.IslandPlacement` from the monitor's work area and effective DPI, in physical pixels, and applied with `SetWindowPos(HWND_TOPMOST)`. It is recomputed on `WM_DISPLAYCHANGE`, `WM_SETTINGCHANGE`/`SPI_SETWORKAREA`, DPI changes and the `TaskbarCreated` broadcast (Explorer restart); bursts are coalesced into one reposition.
+- `Interop/ForegroundWatcher` hooks `EVENT_SYSTEM_FOREGROUND` with `SetWinEventHook` and re-asserts topmost whenever another window comes to the front. No polling.
+- `App` owns startup: single-instance mutex, Serilog file logging, global exception handlers, the island window and `TrayIconController`.

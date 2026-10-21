@@ -193,17 +193,17 @@ Satu window transparan berukuran tetap (≥ ukuran expanded terbesar + margin ba
 **Selesai jika:** build & test lulus lokal, app kosong bisa dijalankan, CI hijau setelah saya push.
 
 ### Fase 1 — Window island
-- [ ] `app.manifest`: DPI awareness PerMonitorV2, supportedOS Win10/11
-- [ ] `IslandWindow`: `WindowStyle=None`, `AllowsTransparency=True`, `Topmost`, `ShowInTaskbar=False`, `ShowActivated=False`, `ResizeMode=NoResize`
-- [ ] Extended style via CsWin32: `WS_EX_TOOLWINDOW` (tidak muncul di Alt+Tab) + `WS_EX_NOACTIVATE` (tidak mencuri fokus)
-- [ ] Posisi tengah atas **work area** monitor terpilih; hitung ulang saat display berubah, DPI berubah, dan saat Explorer restart (pesan `TaskbarCreated`)
-- [ ] Tegaskan ulang topmost saat jendela foreground berganti (`SetWinEventHook` `EVENT_SYSTEM_FOREGROUND`), bukan polling cepat
-- [ ] Verifikasi area transparan tembus klik (lihat 3.4)
-- [ ] Single instance (named `Mutex`; peluncuran kedua langsung keluar)
-- [ ] Tray icon: Show/Hide island, Settings (placeholder, disabled), Open logs folder, Quit
-- [ ] Ikon `.ico` original sederhana (pill), dibuat sendiri
-- [ ] Serilog ke `%LOCALAPPDATA%\Pulau\logs`, rolling harian, simpan 7 file
-- [ ] Handler global untuk unhandled exception (Dispatcher, AppDomain, TaskScheduler) → log, jangan crash diam-diam
+- [x] `app.manifest`: DPI awareness PerMonitorV2, supportedOS Win10/11
+- [x] `IslandWindow`: `WindowStyle=None`, `AllowsTransparency=True`, `Topmost`, `ShowInTaskbar=False`, `ShowActivated=False`, `ResizeMode=NoResize`
+- [x] Extended style via CsWin32: `WS_EX_TOOLWINDOW` (tidak muncul di Alt+Tab) + `WS_EX_NOACTIVATE` (tidak mencuri fokus)
+- [x] Posisi tengah atas **work area** monitor terpilih; hitung ulang saat display berubah, DPI berubah, dan saat Explorer restart (pesan `TaskbarCreated`)
+- [x] Tegaskan ulang topmost saat jendela foreground berganti (`SetWinEventHook` `EVENT_SYSTEM_FOREGROUND`), bukan polling cepat
+- [ ] Verifikasi area transparan tembus klik (lihat 3.4) — *menunggu uji manual 1.5 di Windows*
+- [x] Single instance (named `Mutex`; peluncuran kedua langsung keluar)
+- [x] Tray icon: Show/Hide island, Settings (placeholder, disabled), Open logs folder, Quit
+- [x] Ikon `.ico` original sederhana (pill), dibuat sendiri
+- [x] Serilog ke `%LOCALAPPDATA%\Pulau\logs`, rolling harian, simpan 7 file
+- [x] Handler global untuk unhandled exception (Dispatcher, AppDomain, TaskScheduler) → log, jangan crash diam-diam
 
 **Selesai jika (uji manual):** pill muncul di tengah atas; tidak ada di taskbar & Alt+Tab; mengklik pill tidak mengambil fokus dari app yang sedang dipakai mengetik; area di sekitar pill bisa diklik tembus; posisi tepat di scaling 100%/125%/150% dan di multi monitor; Quit menutup bersih; menjalankan dua kali tetap satu instance.
 
