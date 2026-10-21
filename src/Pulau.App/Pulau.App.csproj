@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- Windows SDK projection is needed for WinRT APIs (SMTC, PowerManager); SMTC requires Windows 10 1809+. -->
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Pulau</RootNamespace>
+    <AssemblyName>Pulau</AssemblyName>
+    <!-- Lets contributors compile (not run) the app on Linux/macOS. -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pulau.Core\Pulau.Core.csproj" />
+  </ItemGroup>
+
+</Project>

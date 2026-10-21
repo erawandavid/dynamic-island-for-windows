@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest an idea or a new module for Pulau.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Please check the roadmap in PLAN.md and the existing issues first.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How should Pulau behave? Which state (compact / expanded) would show it?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Project constraints
+      options:
+        - label: This feature works without network access, telemetry or admin rights.
+          required: true
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Would you like to implement it?
+      options:
+        - "Yes"
+        - Maybe, with some guidance
+        - "No"
+  - type: textarea
+    id: extra
+    attributes:
+      label: Mockups / additional context

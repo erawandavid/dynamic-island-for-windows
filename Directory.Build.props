@@ -1,0 +1,24 @@
+<Project>
+
+  <!-- Settings shared by every project in the repository. -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <!-- Product metadata. Release builds override Version from the git tag (-p:Version=X.Y.Z). -->
+  <PropertyGroup>
+    <Product>Pulau</Product>
+    <Authors>David Dylan Erawan</Authors>
+    <Copyright>Copyright (c) 2026 David Dylan Erawan</Copyright>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix>dev</VersionSuffix>
+    <RepositoryUrl>https://github.com/erawandavid/dynamic-island-for-windows</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+</Project>
