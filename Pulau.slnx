@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Pulau.App/Pulau.App.csproj" />
+    <Project Path="src/Pulau.Core/Pulau.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Pulau.Core.Tests/Pulau.Core.Tests.csproj" />
+  </Folder>
+</Solution>
