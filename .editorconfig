@@ -10,7 +10,7 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{json,yml,yaml,xml,xaml,csproj,props,targets,slnx,manifest,config}]
+[*.{json,yml,yaml,xml,xaml,csproj,props,targets,slnx,manifest,config,html,css,js}]
 indent_size = 2
 
 [*.xaml]
