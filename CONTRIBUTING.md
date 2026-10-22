@@ -6,7 +6,7 @@ Thanks for your interest in Pulau! Bug reports, ideas, docs fixes and code are a
 
 - Check the [open issues](https://github.com/erawandavid/dynamic-island-for-windows/issues) to avoid duplicate work. For anything bigger than a small fix, open an issue first so we can agree on the approach.
 - Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how the pieces fit together, and [PLAN.md](PLAN.md) for the roadmap.
-- Want to add a new island module (timer, Bluetooth, …)? See `docs/ADDING_A_MODULE.md` (coming in Phase 3).
+- Want to add a new island module (timer, Bluetooth, …)? See [docs/ADDING_A_MODULE.md](docs/ADDING_A_MODULE.md).
 
 ## Development setup
 

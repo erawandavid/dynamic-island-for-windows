@@ -208,21 +208,21 @@ Satu window transparan berukuran tetap (≥ ukuran expanded terbesar + margin ba
 **Selesai jika (uji manual):** pill muncul di tengah atas; tidak ada di taskbar & Alt+Tab; mengklik pill tidak mengambil fokus dari app yang sedang dipakai mengetik; area di sekitar pill bisa diklik tembus; posisi tepat di scaling 100%/125%/150% dan di multi monitor; Quit menutup bersih; menjalankan dua kali tetap satu instance.
 
 ### Fase 2 — Animasi & state machine
-- [ ] Core: `Spring` + unit test (konvergen ke target, settle, retarget mempertahankan kecepatan, clamp `dt`)
-- [ ] Core: `IslandStateMachine` + unit test untuk setiap baris tabel 3.1
-- [ ] App: `IslandAnimator` mengikat spring ke Width/Height/CornerRadius; berhenti saat diam
-- [ ] Transisi konten (fade/scale) sesuai 3.3
-- [ ] Timer hover/leave, klik untuk toggle expanded
-- [ ] Panel Home (jam, tanggal, baterai)
-- [ ] Menu tray **Debug** (hanya `#if DEBUG`) untuk memaksa state Idle/Compact/Expanded dengan konten dummy
+- [x] Core: `Spring` + unit test (konvergen ke target, settle, retarget mempertahankan kecepatan, clamp `dt`)
+- [x] Core: `IslandStateMachine` + unit test untuk setiap baris tabel 3.1
+- [x] App: `IslandAnimator` mengikat spring ke Width/Height/CornerRadius; berhenti saat diam
+- [x] Transisi konten (fade/scale) sesuai 3.3
+- [x] Timer hover/leave, klik untuk toggle expanded
+- [x] Panel Home (jam, tanggal, baterai)
+- [x] Menu tray **Debug** (hanya `#if DEBUG`) untuk memaksa state Idle/Compact/Expanded dengan konten dummy
 
 **Selesai jika:** morph halus tanpa patah (juga di layar refresh-rate tinggi); CPU ≈ 0% saat diam (cek Task Manager); tidak ada loop render saat tidak beranimasi.
 
 ### Fase 3 — Sistem modul + Media
-- [ ] Core: `IIslandModule`, `IslandActivity`, `ActivityManager` + unit test dengan `FakeTimeProvider`
-- [ ] App: registrasi modul lewat DI; `DataTemplate` memetakan tipe ViewModel → View
-- [ ] `docs/ADDING_A_MODULE.md`: panduan langkah demi langkah bikin modul baru (contoh modul minimal)
-- [ ] `MediaModule`:
+- [x] Core: `IIslandModule`, `IslandActivity`, `ActivityManager` + unit test dengan `FakeTimeProvider`
+- [x] App: registrasi modul lewat DI; `DataTemplate` memetakan tipe ViewModel → View
+- [x] `docs/ADDING_A_MODULE.md`: panduan langkah demi langkah bikin modul baru (contoh modul minimal)
+- [x] `MediaModule`:
   - pilih session SMTC aktif; jika banyak, utamakan yang sedang *Playing*
   - **Compact:** album art (sudut membulat) kiri, equalizer bar beranimasi kanan (bergerak hanya saat Playing)
   - **Expanded:** art, judul (ellipsis), artis, nama app sumber, tombol prev / play-pause / next, progress bar + waktu (interpolasi lokal di antara update; sembunyikan bar jika app tidak memberi timeline)

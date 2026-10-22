@@ -40,3 +40,48 @@ Please report: Windows version (`winver`), display scaling, number of monitors, 
 | 1.13 | While Pulau runs, start it a second time. | No second pill or tray icon; the second launch exits immediately. |
 | 1.14 | Tray menu → **Quit Pulau**. | Pill and tray icon disappear; no `Pulau.exe` in Task Manager; the log ends with an "exiting" line. |
 | 1.15 | Optional: watch Pulau in Task Manager for a minute while idle. | CPU stays at about 0%. |
+
+## Phase 2 — Animation and states
+
+Run a **Debug** build so the tray has a **Debug** menu: `dotnet run --project src/Pulau.App` (no `-c Release`).
+
+Please also tell us how the motion *feels*: too slow, too fast, too bouncy?
+
+| # | Steps | Expected |
+|---|---|---|
+| 2.1 | Start Pulau. | The small idle pill (about 120 × 32) at the top center. |
+| 2.2 | Rest the pointer on the pill. | After a moment (~0.15 s) it grows smoothly, with a slight spring, into the home panel: clock and date on the left; on a laptop, battery % and status on the right. The text fades in near the end of the morph. |
+| 2.3 | Move the pointer away. | About 0.4 s later it shrinks back to the idle pill. |
+| 2.4 | Sweep the pointer quickly across the pill. | It does not expand. |
+| 2.5 | Click the pill; then click it again without moving away; then move away and back. | First click: expands at once. Second click: collapses and stays collapsed while the pointer is still on it. After leaving and coming back, hovering expands it again. |
+| 2.6 | Tray → Debug → **Show dummy activity (compact)**. Then hover. | The pill widens to the compact size with "Debug activity". Hovering expands it to a large panel with "Expanded debug activity". |
+| 2.7 | Tray → Debug → **Show dummy transient (2 s)**. | "Transient (2 s)" shows for two seconds, then the previous content comes back. |
+| 2.8 | With the dummy activity showing: Tray → Debug → **Peek dummy activity (3 s)**. | The island expands by itself for three seconds, then returns to compact. |
+| 2.9 | Tray → Debug → **Clear dummy activity (idle)**. | Back to the idle pill. |
+| 2.10 | Tray → Debug → **Toggle expanded**, move the pointer elsewhere, then toggle again. | It expands and stays expanded without the pointer; the second toggle collapses it. |
+| 2.11 | Tray → **Hide island**, then **Show island**. | The pill fades out while shrinking upward, then comes back the same way. |
+| 2.12 | Hover in and out quickly, click repeatedly, trigger debug items in a row. | Motion redirects smoothly mid-flight; no jumps, flicker or wrong content left behind. |
+| 2.13 | Settings → Accessibility → Visual effects → **Animation effects** off; repeat 2.2. Turn it back on afterwards. | Changes are instant (no morph). |
+| 2.14 | If you have a 120 Hz+ display, repeat 2.2 on it. | Still smooth. |
+| 2.15 | Leave the island idle for a minute and watch Pulau in Task Manager. Then open the home panel across a minute change. | CPU about 0% when nothing moves. The clock updates when the minute changes. |
+| 2.16 | Compare the date/time format with the taskbar clock. | Same regional format (e.g. 24-hour if Windows uses it). |
+
+## Phase 3 — Media
+
+A Release build is fine: `dotnet run --project src/Pulau.App -c Release`. Please report which apps you tried; the log (tray → Open logs folder) has a line for every media session that opens and closes.
+
+| # | Steps | Expected |
+|---|---|---|
+| 3.1 | Start Pulau, open **Spotify** and play a song. | Within about a second the pill widens: album art on the left, bouncing bars on the right in a color taken from the art. |
+| 3.2 | Minimize Spotify. | The song stays in the island. |
+| 3.3 | Hover the island. | Expanded: art, title, artist, "Spotify", a progress bar that moves with elapsed / total time, and previous / play-pause / next buttons. |
+| 3.4 | Click pause, then play, then next and previous. | Spotify obeys; the play/pause icon and the bars follow; the title and art update within a second after next/previous. |
+| 3.5 | While the island is compact, let the song end (or skip in Spotify itself). | The island expands by itself for about three seconds showing the new song, then returns to compact. |
+| 3.6 | Pause in Spotify and wait. | The island stays (bars still). Five minutes after pausing it goes back to the idle pill. |
+| 3.7 | Play again, then close Spotify completely. | The island returns to the idle pill. |
+| 3.8 | Play a **YouTube** video in **Chrome**, then in **Edge**. | Title, channel and thumbnail show, with "Chrome" / "Edge" as the source. Play/pause works (next/previous work in playlists). |
+| 3.9 | Play Spotify, then start a YouTube video; then pause YouTube. | The island follows whatever started playing last; after pausing YouTube it switches back to Spotify (if Spotify is still playing). |
+| 3.10 | Play something without artwork (e.g. a local file without a cover). | A music-note placeholder instead of art; no crash. |
+| 3.11 | Play something whose app reports no track length (e.g. some radio streams). | The progress bar is hidden; everything else works. |
+| 3.12 | While typing in Notepad, use the island's buttons. | Typing focus stays in Notepad. |
+| 3.13 | Leave a paused YouTube tab open, quit and restart Pulau. | The paused tab does not pop up in the island until it plays. |
