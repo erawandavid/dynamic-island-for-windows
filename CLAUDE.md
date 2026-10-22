@@ -43,3 +43,5 @@ The solution builds on Linux/macOS (`EnableWindowsTargeting`), but the app only 
 - Time-based logic in Core takes a `TimeProvider` so tests can use `FakeTimeProvider`.
 - Win32 P/Invoke goes through CsWin32 (`NativeMethods.txt`), not hand-written `DllImport`s.
 - No network access, no telemetry, no admin rights — ever.
+- Never name a source folder `Debug`, `Release`, `x64`, `x86`, `ARM`, `ARM64`, `bin`, `obj`, `log` or `logs`: `.gitignore` excludes them, so their files silently never get committed.
+- Before pushing, build and test a fresh clone of the commit (`git clone . <tmp> && cd <tmp> && dotnet build -c Release && dotnet test -c Release`). Your working folder can hide missing or ignored files.
