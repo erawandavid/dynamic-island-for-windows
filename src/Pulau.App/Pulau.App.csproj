@@ -10,10 +10,30 @@
     <AssemblyName>Pulau</AssemblyName>
     <!-- Lets contributors compile (not run) the app on Linux/macOS. -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\Pulau.ico</ApplicationIcon>
+    <!-- Required by the CsWin32-generated interop code. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="Interop\NativeMethods.txt" />
+    <AdditionalFiles Include="Interop\NativeMethods.json" />
+    <Resource Include="Assets\Pulau.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Pulau.Core\Pulau.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.4.1" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.366">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog" Version="4.4.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

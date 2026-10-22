@@ -8,7 +8,7 @@
 > **Status:** early development. Nothing is released yet — see the [roadmap](PLAN.md) and [changelog](CHANGELOG.md).
 
 <!-- TODO: replace with a demo GIF / screenshot before the first release. -->
-_Demo GIF coming soon._ Until then, open [`docs/mockup/index.html`](docs/mockup/index.html) in a browser for an interactive design mockup of the island (not the real app).
+_Demo GIF coming soon._
 
 ## Features
 

@@ -19,6 +19,7 @@ The solution builds on Linux/macOS (`EnableWindowsTargeting`), but the app only 
   - `Modules/` (MediaModule, VolumeModule, BatteryModule + their ViewModels/Views), `Interop/` (CsWin32 `NativeMethods.txt` + Win32 helpers), `Views/`, `Assets/`.
 - `tests/Pulau.Core.Tests/` — xUnit tests for Core.
 - `docs/` — `ARCHITECTURE.md`, `ADDING_A_MODULE.md`, `DECISIONS.md`, `MANUAL_TESTS.md`.
+- `tools/` — helper scripts (e.g. `make_icon.py` regenerates `Assets/Pulau.ico`).
 - Shared build settings: `Directory.Build.props`. SDK pinned in `global.json`.
 
 ## Working rules
