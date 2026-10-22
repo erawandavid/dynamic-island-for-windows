@@ -7,6 +7,7 @@ using Pulau.Core;
 using Pulau.Core.Activities;
 using Pulau.Core.States;
 using Pulau.Modules.Debug;
+using Pulau.Modules.Media;
 using Pulau.Threading;
 using Pulau.ViewModels;
 using Pulau.Views;
@@ -143,6 +144,7 @@ public partial class App : Application
         services.AddSingleton<IslandWindow>();
 
         // Island modules. Each one is registered as itself and as IIslandModule.
+        AddModule<MediaModule>(services);
 #if DEBUG
         AddModule<DebugModule>(services);
 #endif

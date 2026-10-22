@@ -65,3 +65,23 @@ Please also tell us how the motion *feels*: too slow, too fast, too bouncy?
 | 2.14 | If you have a 120 Hz+ display, repeat 2.2 on it. | Still smooth. |
 | 2.15 | Leave the island idle for a minute and watch Pulau in Task Manager. Then open the home panel across a minute change. | CPU about 0% when nothing moves. The clock updates when the minute changes. |
 | 2.16 | Compare the date/time format with the taskbar clock. | Same regional format (e.g. 24-hour if Windows uses it). |
+
+## Phase 3 — Media
+
+A Release build is fine: `dotnet run --project src/Pulau.App -c Release`. Please report which apps you tried; the log (tray → Open logs folder) has a line for every media session that opens and closes.
+
+| # | Steps | Expected |
+|---|---|---|
+| 3.1 | Start Pulau, open **Spotify** and play a song. | Within about a second the pill widens: album art on the left, bouncing bars on the right in a color taken from the art. |
+| 3.2 | Minimize Spotify. | The song stays in the island. |
+| 3.3 | Hover the island. | Expanded: art, title, artist, "Spotify", a progress bar that moves with elapsed / total time, and previous / play-pause / next buttons. |
+| 3.4 | Click pause, then play, then next and previous. | Spotify obeys; the play/pause icon and the bars follow; the title and art update within a second after next/previous. |
+| 3.5 | While the island is compact, let the song end (or skip in Spotify itself). | The island expands by itself for about three seconds showing the new song, then returns to compact. |
+| 3.6 | Pause in Spotify and wait. | The island stays (bars still). Five minutes after pausing it goes back to the idle pill. |
+| 3.7 | Play again, then close Spotify completely. | The island returns to the idle pill. |
+| 3.8 | Play a **YouTube** video in **Chrome**, then in **Edge**. | Title, channel and thumbnail show, with "Chrome" / "Edge" as the source. Play/pause works (next/previous work in playlists). |
+| 3.9 | Play Spotify, then start a YouTube video; then pause YouTube. | The island follows whatever started playing last; after pausing YouTube it switches back to Spotify (if Spotify is still playing). |
+| 3.10 | Play something without artwork (e.g. a local file without a cover). | A music-note placeholder instead of art; no crash. |
+| 3.11 | Play something whose app reports no track length (e.g. some radio streams). | The progress bar is hidden; everything else works. |
+| 3.12 | While typing in Notepad, use the island's buttons. | Typing focus stays in Notepad. |
+| 3.13 | Leave a paused YouTube tab open, quit and restart Pulau. | The paused tab does not pop up in the island until it plays. |

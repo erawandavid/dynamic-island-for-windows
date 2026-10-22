@@ -112,6 +112,14 @@ How it is implemented (Phase 2):
 - View models are mapped to views by DataTemplates in `Views/IslandTemplates.xaml`; shared brushes and styles are in `Views/IslandTheme.xaml`. Both are Application resources.
 - `App.ConfigureServices` is the composition root (Microsoft.Extensions.DependencyInjection). Modules are registered as `IIslandModule` and handed to the `ActivityManager` at startup.
 
+How it is implemented (Phase 3):
+
+- `IslandActivity` also carries `CompactSize`, `ExpandedSize` and `RequestsPeek`; each module has at most one activity at a time. A peek request expands the island only if that activity is the one on screen.
+- `Modules/Media/MediaModule` listens to SMTC through `Dubya.WindowsMediaController`, moves every event to the UI thread, and keeps per-session state (track, artwork reference, playback, timeline). `Pulau.Core.Media.MediaSessionSelector` picks the session to show; `PlaybackTimeline` advances the position between updates; `AccentColor` and `MediaSourceNames` turn artwork and app ids into a color and a readable name.
+- `NowPlayingViewModel` holds the shown session's state and the media commands; `MediaCompactViewModel` and `MediaExpandedViewModel` wrap it so each gets its own view (`MediaCompactView`, `MediaExpandedView`). The expanded one advances the progress bar only while it is on screen.
+- `Views/Controls/EqualizerBars` is the decorative equalizer (30 fps, only while playing and loaded).
+- See [ADDING_A_MODULE.md](ADDING_A_MODULE.md) for writing another module.
+
 ## Window approach
 
 A single fixed-size transparent window (at least the largest expanded size plus shadow margin, e.g. 480 × 220 DIP) sits at the top center of the monitor; the pill is a `Border` inside it. Fully transparent pixels must be **click-through** — this is verified in Phase 1. If they are not, the fallback is to resize the window to follow the pill's bounds, or to toggle `WS_EX_TRANSPARENT` based on the cursor position. The outcome is recorded in [DECISIONS.md](DECISIONS.md).

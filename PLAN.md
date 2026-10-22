@@ -219,10 +219,10 @@ Satu window transparan berukuran tetap (≥ ukuran expanded terbesar + margin ba
 **Selesai jika:** morph halus tanpa patah (juga di layar refresh-rate tinggi); CPU ≈ 0% saat diam (cek Task Manager); tidak ada loop render saat tidak beranimasi.
 
 ### Fase 3 — Sistem modul + Media
-- [ ] Core: `IIslandModule`, `IslandActivity`, `ActivityManager` + unit test dengan `FakeTimeProvider`
-- [ ] App: registrasi modul lewat DI; `DataTemplate` memetakan tipe ViewModel → View
-- [ ] `docs/ADDING_A_MODULE.md`: panduan langkah demi langkah bikin modul baru (contoh modul minimal)
-- [ ] `MediaModule`:
+- [x] Core: `IIslandModule`, `IslandActivity`, `ActivityManager` + unit test dengan `FakeTimeProvider`
+- [x] App: registrasi modul lewat DI; `DataTemplate` memetakan tipe ViewModel → View
+- [x] `docs/ADDING_A_MODULE.md`: panduan langkah demi langkah bikin modul baru (contoh modul minimal)
+- [x] `MediaModule`:
   - pilih session SMTC aktif; jika banyak, utamakan yang sedang *Playing*
   - **Compact:** album art (sudut membulat) kiri, equalizer bar beranimasi kanan (bergerak hanya saat Playing)
   - **Expanded:** art, judul (ellipsis), artis, nama app sumber, tombol prev / play-pause / next, progress bar + waktu (interpolasi lokal di antara update; sembunyikan bar jika app tidak memberi timeline)
