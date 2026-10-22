@@ -16,7 +16,7 @@ The solution builds on Linux/macOS (`EnableWindowsTargeting`), but the app only 
 
 - `src/Pulau.Core/` — pure logic, `net10.0`, no WPF/WinRT. Module abstractions, ActivityManager, state machine, springs, settings model. Must stay 100% unit-testable.
 - `src/Pulau.App/` — WPF app (`net10.0-windows10.0.19041.0`, assembly `Pulau`, root namespace `Pulau`): entry point, windows, tray, DI root.
-  - `Modules/` (MediaModule, VolumeModule, BatteryModule + their ViewModels/Views), `Interop/` (CsWin32 `NativeMethods.txt` + Win32 helpers), `Views/`, `Assets/`.
+  - `Modules/` (MediaModule, VolumeModule, BatteryModule + their ViewModels/Views), `Interop/` (CsWin32 `NativeMethods.txt` + Win32 helpers), `Views/` (windows, `IslandAnimator`, island theme and DataTemplates), `ViewModels/`, `Threading/`, `Assets/`.
 - `tests/Pulau.Core.Tests/` — xUnit tests for Core.
 - `docs/` — `ARCHITECTURE.md`, `ADDING_A_MODULE.md`, `DECISIONS.md`, `MANUAL_TESTS.md`.
 - `tools/` — helper scripts (e.g. `make_icon.py` regenerates `Assets/Pulau.ico`).

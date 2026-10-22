@@ -13,8 +13,9 @@
         UseLayoutRounding="True">
     <!--
         A fixed-size transparent host window. Fully transparent pixels are click-through
-        (layered window), so only the pill and its shadow receive mouse input.
-        Window size and the pill's top margin are set from IslandPlacement in code-behind.
+        (layered window), so only the pill receives mouse input.
+        Window size and the pill's top margin come from IslandPlacement; IslandAnimator drives
+        the pill's size, corner radius, clip and content.
     -->
     <Grid>
         <Border x:Name="Pill"
@@ -23,15 +24,26 @@
                 CornerRadius="16"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Background="#000000"
+                Background="{StaticResource IslandBackground}"
+                RenderTransformOrigin="0.5,0"
                 AutomationProperties.Name="Pulau island">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="14"
-                                  ShadowDepth="2"
-                                  Direction="270"
-                                  Opacity="0.35"
-                                  Color="#000000" />
-            </Border.Effect>
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="PillScale" />
+                    <TranslateTransform x:Name="PillOffset" />
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Canvas>
+                <ContentPresenter x:Name="ContentHost"
+                                  Canvas.Top="0"
+                                  RenderTransformOrigin="0.5,0.5"
+                                  TextElement.FontFamily="{StaticResource IslandFont}"
+                                  TextElement.Foreground="{StaticResource IslandPrimaryText}">
+                    <ContentPresenter.RenderTransform>
+                        <ScaleTransform x:Name="ContentScale" />
+                    </ContentPresenter.RenderTransform>
+                </ContentPresenter>
+            </Canvas>
         </Border>
     </Grid>
 </Window>

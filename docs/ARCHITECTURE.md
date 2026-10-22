@@ -103,6 +103,15 @@ Initial sizes (DIP; scalable later through settings):
 
 Visual style: background `#000000`, white text, secondary text `#A1A1A1`, Segoe UI Variable, 8 DIP from the top of the work area. Dark theme only in v1.
 
+How it is implemented (Phase 2):
+
+- `Pulau.Core.States.IslandStateMachine` implements the table above with `TimeProvider` timers (hover 150 ms, leave 400 ms, peek 3 s).
+- `ViewModels/IslandViewModel` combines the state machine and the `ActivityManager` into an `IslandPresentation` (state, size, content). Expanded with no activity shows `HomeViewModel`. Content view models that implement `IIslandContent` are told when they go on and off screen.
+- `Views/IslandAnimator` turns presentation changes into motion: shape springs from `Pulau.Core.Animation` plus a content cross-fade (see `IslandMotion` for the numbers). The content box always has its final size and is clipped by the pill's rounded corners while the shape morphs.
+- `Threading/DispatcherTimeProvider` makes Core timers fire on the UI thread, so Core needs no locks.
+- View models are mapped to views by DataTemplates in `Views/IslandTemplates.xaml`; shared brushes and styles are in `Views/IslandTheme.xaml`. Both are Application resources.
+- `App.ConfigureServices` is the composition root (Microsoft.Extensions.DependencyInjection). Modules are registered as `IIslandModule` and handed to the `ActivityManager` at startup.
+
 ## Window approach
 
 A single fixed-size transparent window (at least the largest expanded size plus shadow margin, e.g. 480 × 220 DIP) sits at the top center of the monitor; the pill is a `Border` inside it. Fully transparent pixels must be **click-through** — this is verified in Phase 1. If they are not, the fallback is to resize the window to follow the pill's bounds, or to toggle `WS_EX_TRANSPARENT` based on the cursor position. The outcome is recorded in [DECISIONS.md](DECISIONS.md).

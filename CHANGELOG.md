@@ -17,5 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tray icon with Show/Hide island, Settings (placeholder), Open logs folder and Quit.
 - Single-instance guard, file logging to `%LOCALAPPDATA%\Pulau\logs` (daily, 7 files kept) and logging of all unhandled exceptions.
 - Per-Monitor V2 DPI awareness (`app.manifest`) and an app icon.
+- Animated island: a spring-driven morph between the idle pill, compact activities and the expanded panel, with content that fades out and back in. Hover for 150 ms or click to expand; it collapses 400 ms after the pointer leaves. Respects the Windows "Animation effects" setting, and the render loop only runs while something moves.
+- Home panel when expanded with no activity: clock, date and (on laptops) battery level and charging status, in the system's regional format.
+- Hiding and showing the island from the tray now animates.
+- Debug builds: a tray **Debug** menu to show dummy compact, transient and peeking activities.
 
 [Unreleased]: https://github.com/erawandavid/dynamic-island-for-windows/commits/main

@@ -1,8 +1,10 @@
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using Pulau.Core.Layout;
 using Pulau.Interop;
+using Pulau.ViewModels;
 using Serilog;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -20,16 +22,28 @@ public partial class IslandWindow : Window
     // Broadcast to top-level windows when Explorer (and so the taskbar) starts or restarts.
     private static readonly uint TaskbarCreatedMessage = PInvoke.RegisterWindowMessage("TaskbarCreated");
 
+    private readonly IslandViewModel _viewModel;
+    private readonly IslandAnimator _animator;
     private HwndSource? _source;
     private ForegroundWatcher? _foregroundWatcher;
     private bool _repositionPending;
 
-    public IslandWindow()
+    public IslandWindow(IslandViewModel viewModel)
     {
         InitializeComponent();
         Width = IslandPlacement.WindowWidthDip;
         Height = IslandPlacement.WindowHeightDip;
         Pill.Margin = new Thickness(0, IslandPlacement.PillTopMarginDip, 0, 0);
+
+        _viewModel = viewModel;
+        _animator = new IslandAnimator(Pill, PillScale, PillOffset, ContentHost, ContentScale);
+        _animator.JumpTo(viewModel.Presentation);
+        viewModel.PresentationChanged += (_, _) => _animator.AnimateTo(viewModel.Presentation);
+
+        Pill.MouseEnter += (_, _) => _viewModel.PointerEntered();
+        Pill.MouseLeave += (_, _) => _viewModel.PointerExited();
+        Pill.MouseLeftButtonUp += OnPillClicked;
+
         IsVisibleChanged += (_, _) =>
         {
             if (IsVisible)
@@ -66,6 +80,13 @@ public partial class IslandWindow : Window
         _foregroundWatcher?.Dispose();
         _source?.RemoveHook(WndProc);
         base.OnClosed(e);
+    }
+
+    private void OnPillClicked(object sender, MouseButtonEventArgs e)
+    {
+        // Buttons inside the pill handle their own clicks, so this only sees clicks on the pill itself.
+        _viewModel.Click();
+        e.Handled = true;
     }
 
     private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)

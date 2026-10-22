@@ -5,7 +5,8 @@ using System.Windows.Controls;
 using H.NotifyIcon;
 using H.NotifyIcon.Core;
 using Pulau.Core;
-using Pulau.Views;
+using Pulau.Modules.Debug;
+using Pulau.ViewModels;
 using Serilog;
 using Windows.Win32;
 using Windows.Win32.UI.WindowsAndMessaging;
@@ -17,12 +18,15 @@ internal sealed class TrayIconController : IDisposable
 {
     private static readonly ILogger Logger = Log.ForContext<TrayIconController>();
 
-    private readonly IslandWindow _island;
+    private readonly IslandViewModel _island;
     private readonly MenuItem _toggleIslandItem;
     private readonly System.Drawing.Icon _iconImage;
     private readonly TaskbarIcon _icon;
 
-    public TrayIconController(IslandWindow island, Action quit)
+    /// <param name="island">The island the menu shows and hides.</param>
+    /// <param name="quit">Quits the app.</param>
+    /// <param name="debug">When set (Debug builds), adds a Debug submenu with dummy activities.</param>
+    public TrayIconController(IslandViewModel island, Action quit, DebugModule? debug)
     {
         _island = island;
 
@@ -43,6 +47,11 @@ internal sealed class TrayIconController : IDisposable
         menu.Items.Add(settingsItem);
         menu.Items.Add(new Separator());
         menu.Items.Add(logsItem);
+        if (debug is not null)
+        {
+            menu.Items.Add(CreateDebugMenu(island, debug));
+        }
+
         menu.Items.Add(new Separator());
         menu.Items.Add(quitItem);
         menu.Opened += (_, _) => UpdateToggleHeader();
@@ -68,6 +77,24 @@ internal sealed class TrayIconController : IDisposable
         _iconImage.Dispose();
     }
 
+    private static MenuItem CreateDebugMenu(IslandViewModel island, DebugModule debug)
+    {
+        var menu = new MenuItem { Header = "Debug" };
+        AddItem("Show dummy activity (compact)", () => debug.ShowPersistent());
+        AddItem("Show dummy transient (2 s)", debug.ShowTransient);
+        AddItem("Peek dummy activity (3 s)", () => debug.ShowPersistent(requestPeek: true));
+        AddItem("Clear dummy activity (idle)", debug.Clear);
+        AddItem("Toggle expanded", island.ToggleExpanded);
+        return menu;
+
+        void AddItem(string header, Action action)
+        {
+            var item = new MenuItem { Header = header };
+            item.Click += (_, _) => action();
+            menu.Items.Add(item);
+        }
+    }
+
     private static System.Drawing.Icon LoadIcon()
     {
         var resource = Application.GetResourceStream(new Uri("pack://application:,,,/Assets/Pulau.ico"))
@@ -81,22 +108,14 @@ internal sealed class TrayIconController : IDisposable
 
     private void ToggleIsland()
     {
-        if (_island.IsVisible)
-        {
-            _island.Hide();
-            Logger.Information("Island hidden from the tray menu");
-        }
-        else
-        {
-            _island.Show();
-            Logger.Information("Island shown from the tray menu");
-        }
-
+        var hide = !_island.IsUserHidden;
+        _island.SetUserHidden(hide);
+        Logger.Information(hide ? "Island hidden from the tray menu" : "Island shown from the tray menu");
         UpdateToggleHeader();
     }
 
     private void UpdateToggleHeader() =>
-        _toggleIslandItem.Header = _island.IsVisible ? "Hide island" : "Show island";
+        _toggleIslandItem.Header = _island.IsUserHidden ? "Show island" : "Hide island";
 
     private static void OpenLogsFolder()
     {
