@@ -23,5 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Debug builds: a tray **Debug** menu to show dummy compact, transient and peeking activities.
 - Media in the island for Spotify, browsers (YouTube in Chrome/Edge…) and other apps that use the Windows media controls. Compact: album art and an equalizer that moves while playing. Expanded: art, title, artist, source app, previous / play-pause / next, and a progress bar with elapsed and total time. The accent color comes from the album art. The island peeks for three seconds when the song changes; paused media stays for five minutes.
 - `docs/ADDING_A_MODULE.md`: step-by-step guide to writing a new island module.
+- Click the island while music plays to switch to the app that is playing it (a minimized window is restored). Hovering still opens the controls.
 
 [Unreleased]: https://github.com/erawandavid/dynamic-island-for-windows/commits/main

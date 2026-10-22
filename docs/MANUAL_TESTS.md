@@ -85,3 +85,8 @@ A Release build is fine: `dotnet run --project src/Pulau.App -c Release`. Please
 | 3.11 | Play something whose app reports no track length (e.g. some radio streams). | The progress bar is hidden; everything else works. |
 | 3.12 | While typing in Notepad, use the island's buttons. | Typing focus stays in Notepad. |
 | 3.13 | Leave a paused YouTube tab open, quit and restart Pulau. | The paused tab does not pop up in the island until it plays. |
+| 3.14 | Play a song in Spotify, then minimize Spotify. Click the compact island (quickly, without waiting for it to expand). | Spotify's window is restored and comes to the front. The island stays compact; it does not expand right after the click. |
+| 3.15 | Put another app in front of Spotify. Hover the island until it expands, then click an empty spot of the panel (not a button). | Spotify comes to the front and the island collapses back to compact. |
+| 3.16 | In the expanded panel, click previous / play-pause / next. | The buttons only control playback; they don't switch to Spotify. |
+| 3.17 | Play a YouTube video in Chrome (and in Edge), switch to another app, then click the island. | The browser window comes to the front. (It may not switch to the right tab if the video plays in a background tab.) |
+| 3.18 | With nothing playing, click the idle pill. | It still opens the home panel (clock, date, battery); a second click closes it. |

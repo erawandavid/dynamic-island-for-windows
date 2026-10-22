@@ -139,6 +139,27 @@ public sealed class IslandStateMachine : IDisposable
     }
 
     /// <summary>
+    /// The user acted on what the island shows (e.g. clicked it to open the app): collapse if
+    /// expanded, and don't expand again under the pointer until it leaves and comes back.
+    /// </summary>
+    public void Dismiss()
+    {
+        _hoverTimer.Cancel();
+        if (HiddenReasons != HideReasons.None)
+        {
+            return;
+        }
+
+        if (State == IslandState.Expanded)
+        {
+            Collapse();
+        }
+
+        _hoverSuppressed = _pointerInside;
+        Update();
+    }
+
+    /// <summary>
     /// Briefly expands a compact island (e.g. the track changed). Ignored unless the island is
     /// compact and <see cref="AutoPeekEnabled"/> is on.
     /// </summary>

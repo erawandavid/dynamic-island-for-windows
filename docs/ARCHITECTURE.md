@@ -50,6 +50,7 @@ States: `Hidden`, `Idle`, `Compact`, `Expanded`.
 | Hidden | condition clears / user shows | previous state |
 
 - While **Expanded**, *transient* activities (e.g. volume) are ignored unless their priority is `Critical`.
+- A **click** on an activity that has a click action (media: switch to the app that is playing) runs that action and collapses the island instead of expanding it; hover still expands. See DECISIONS #43.
 - Expanded with no activity shows the **Home** panel: clock, date (system format) and battery percentage on laptops.
 
 ## Activities and priorities
@@ -118,6 +119,7 @@ How it is implemented (Phase 3):
 - `Modules/Media/MediaModule` listens to SMTC through `Dubya.WindowsMediaController`, moves every event to the UI thread, and keeps per-session state (track, artwork reference, playback, timeline). `Pulau.Core.Media.MediaSessionSelector` picks the session to show; `PlaybackTimeline` advances the position between updates; `AccentColor` and `MediaSourceNames` turn artwork and app ids into a color and a readable name.
 - `NowPlayingViewModel` holds the shown session's state and the media commands; `MediaCompactViewModel` and `MediaExpandedViewModel` wrap it so each gets its own view (`MediaCompactView`, `MediaExpandedView`). The expanded one advances the progress bar only while it is on screen.
 - `Views/Controls/EqualizerBars` is the decorative equalizer (30 fps, only while playing and loaded).
+- Clicking the media activity calls `Interop/AppWindows.TryActivate`, which finds the playing app's window (`Pulau.Core.Apps.AppIdMatcher` decides which processes belong to the session's app id), restores it and brings it to the front.
 - See [ADDING_A_MODULE.md](ADDING_A_MODULE.md) for writing another module.
 
 ## Window approach

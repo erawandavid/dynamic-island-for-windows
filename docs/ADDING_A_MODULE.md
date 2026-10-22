@@ -136,5 +136,6 @@ Constructor parameters are injected: ask for `TimeProvider`, `Dispatcher` or oth
 - **Cheap when idle.** No polling loops; start timers in `IIslandContent.OnShown` and stop them in `OnHidden` if your content only needs them while visible.
 - **Buttons** inside the island use the `IslandIconButton` style (it is not focusable, so clicking doesn't steal focus) and need an `AutomationProperties.Name`.
 - **Auto-peek:** set `RequestsPeek = true` on an activity to expand the island briefly (if it is compact and showing your activity), e.g. when something meaningful changes.
+- **Click action:** set `ClickAction` on an activity to decide what a click on the island does while your activity is shown (the media module switches to the app that is playing). The island collapses afterwards. Without it, a click expands or collapses the island.
 - **No network access, no telemetry, no admin rights.**
 - Add manual test steps to [MANUAL_TESTS.md](MANUAL_TESTS.md) and a line to the *Unreleased* section of [CHANGELOG.md](../CHANGELOG.md).
