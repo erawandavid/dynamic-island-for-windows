@@ -119,6 +119,7 @@ State: `Hidden`, `Idle`, `Compact`, `Expanded`.
 
 - Saat **Expanded**, activity *transient* (mis. volume) diabaikan kecuali prioritas `Critical`.
 - Expanded tanpa activity = panel **Home**: jam, tanggal (ikut format sistem), persentase baterai jika laptop.
+- Klik saat activity punya aksi klik (mis. media → buka aplikasi yang sedang memutar): jalankan aksi itu lalu collapse, bukan expand. Hover tetap expand. (Permintaan pemilik; lihat `docs/DECISIONS.md` #43.)
 
 ### 3.2 Activity & prioritas
 

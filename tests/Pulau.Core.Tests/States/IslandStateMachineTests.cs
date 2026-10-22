@@ -355,6 +355,61 @@ public class IslandStateMachineTests
     }
 
     [Fact]
+    public void Dismiss_CollapsesAnExpandedIsland_AndHoverWaitsForThePointerToReturn()
+    {
+        _machine.HasActivity = true;
+        _machine.PointerEntered();
+        Advance(150);
+        Assert.Equal(IslandState.Expanded, _machine.State);
+
+        _machine.Dismiss();
+        Assert.Equal(IslandState.Compact, _machine.State);
+
+        Advance(1000);
+        Assert.Equal(IslandState.Compact, _machine.State);
+
+        _machine.PointerExited();
+        _machine.PointerEntered();
+        Advance(150);
+        Assert.Equal(IslandState.Expanded, _machine.State);
+    }
+
+    [Fact]
+    public void Dismiss_WhileCompact_CancelsAPendingHover()
+    {
+        // A quick click on the compact pill opens the app; the island must not expand right after.
+        _machine.HasActivity = true;
+        _machine.PointerEntered();
+        Advance(50);
+
+        _machine.Dismiss();
+        Advance(500);
+
+        Assert.Equal(IslandState.Compact, _machine.State);
+    }
+
+    [Fact]
+    public void Dismiss_EndsAPeek()
+    {
+        _machine.HasActivity = true;
+        _machine.Peek();
+
+        _machine.Dismiss();
+
+        Assert.Equal(IslandState.Compact, _machine.State);
+    }
+
+    [Fact]
+    public void Dismiss_WhileHidden_StaysHidden()
+    {
+        _machine.SetHidden(HideReasons.User, true);
+
+        _machine.Dismiss();
+
+        Assert.Equal(IslandState.Hidden, _machine.State);
+    }
+
+    [Fact]
     public void UsesCustomTimings()
     {
         var machine = new IslandStateMachine(_time, new IslandTimings { HoverDelay = TimeSpan.FromMilliseconds(500) });

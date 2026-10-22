@@ -43,11 +43,33 @@ public sealed class IslandViewModel
 
     public void PointerExited() => _states.PointerExited();
 
-    public void Click() => _states.Click();
+    /// <summary>
+    /// A click on the pill (not on a button inside it). If the activity on screen has a click action
+    /// (media: switch to the app that is playing), run it and collapse; otherwise expand or collapse.
+    /// </summary>
+    public void Click()
+    {
+        if (ActivityOnScreen()?.ClickAction is { } clickAction)
+        {
+            _states.Dismiss();
+            clickAction();
+            return;
+        }
+
+        _states.Click();
+    }
 
     public void ToggleExpanded() => _states.ToggleExpanded();
 
     public void SetUserHidden(bool hidden) => _states.SetHidden(HideReasons.User, hidden);
+
+    /// <summary>The activity whose content the pill is showing, if any (not the home panel).</summary>
+    private IslandActivity? ActivityOnScreen() => _states.State switch
+    {
+        IslandState.Compact => _activities.Resolve(expanded: false),
+        IslandState.Expanded when _activities.Resolve(expanded: true) is { ExpandedViewModel: not null } expanded => expanded,
+        _ => null,
+    };
 
     private void OnActivitiesChanged(object? sender, EventArgs e)
     {

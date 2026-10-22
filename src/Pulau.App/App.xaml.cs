@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pulau.Core;
 using Pulau.Core.Activities;
 using Pulau.Core.States;
-using Pulau.Modules.Debug;
+using Pulau.Modules.DebugTools;
 using Pulau.Modules.Media;
 using Pulau.Threading;
 using Pulau.ViewModels;

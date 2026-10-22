@@ -45,4 +45,11 @@ public sealed record IslandActivity(
 
     /// <summary>Ask the island to expand briefly (auto-peek), e.g. because the track changed.</summary>
     public bool RequestsPeek { get; init; }
+
+    /// <summary>
+    /// What a click on the island does while this activity is on screen, e.g. switch to the app
+    /// that is playing. The island collapses afterwards. <c>null</c>: a click expands or
+    /// collapses the island as usual.
+    /// </summary>
+    public Action? ClickAction { get; init; }
 }

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using H.NotifyIcon;
 using H.NotifyIcon.Core;
 using Pulau.Core;
-using Pulau.Modules.Debug;
+using Pulau.Modules.DebugTools;
 using Pulau.ViewModels;
 using Serilog;
 using Windows.Win32;

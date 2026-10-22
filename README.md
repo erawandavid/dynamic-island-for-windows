@@ -18,7 +18,7 @@ Planned for v0.1:
 - **Compact** — widens a little when something happens: music playing, volume changed, charger plugged in.
 - **Expanded** — grows on hover or click: media controls, clock, date and battery.
 - **Hidden** — gets out of the way automatically for fullscreen games and videos.
-- Media from any app that talks to Windows media controls (Spotify, browsers, …): album art, title, artist, playback controls, progress.
+- Media from any app that talks to Windows media controls (Spotify, browsers, …): album art, title, artist, playback controls, progress. Click the island to jump to the app that is playing.
 - Smooth spring-based animations that respect the Windows "Animation effects" setting.
 - Tray icon, global hotkey, start with Windows, multi-monitor and high-DPI support.
 

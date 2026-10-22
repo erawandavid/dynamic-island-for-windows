@@ -2,6 +2,7 @@ using System.Windows.Threading;
 using Pulau.Core.Activities;
 using Pulau.Core.Layout;
 using Pulau.Core.Media;
+using Pulau.Interop;
 using Serilog;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
@@ -16,6 +17,7 @@ namespace Pulau.Modules.Media;
 /// <item>Playing → persistent activity (compact: artwork + equalizer; expanded: controls and progress).</item>
 /// <item>Paused → stays for five minutes, then disappears. Session closed → disappears.</item>
 /// <item>Track change while playing → auto-peek.</item>
+/// <item>Click on the island → switch to the app that is playing.</item>
 /// </list>
 /// SMTC events arrive on background threads; every one is handed to the UI thread first.
 /// </summary>
@@ -277,7 +279,33 @@ public sealed class MediaModule : IIslandModule, IDisposable
             CompactSize = IslandSizes.Compact,
             ExpandedSize = IslandSizes.Expanded,
             RequestsPeek = requestPeek,
+            ClickAction = OpenSourceApp,
         });
+
+    /// <summary>Brings the app that is playing to the front (the user clicked the island).</summary>
+    private void OpenSourceApp()
+    {
+        if (_shownSessionId is not { } appId)
+        {
+            return;
+        }
+
+        try
+        {
+            if (AppWindows.TryActivate(appId))
+            {
+                Logger.Information("Switched to {App}", appId);
+            }
+            else
+            {
+                Logger.Information("Found no window to switch to for {App}", appId);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Warning(ex, "Switching to {App} failed", appId);
+        }
+    }
 
     private void PushTrack(SessionState state)
     {

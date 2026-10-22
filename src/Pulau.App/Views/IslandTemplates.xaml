@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:views="clr-namespace:Pulau.Views"
                     xmlns:vm="clr-namespace:Pulau.ViewModels"
-                    xmlns:debug="clr-namespace:Pulau.Modules.Debug"
+                    xmlns:debug="clr-namespace:Pulau.Modules.DebugTools"
                     xmlns:media="clr-namespace:Pulau.Modules.Media">
     <!--
         Maps each island view-model type to its view. A new module adds its templates here
